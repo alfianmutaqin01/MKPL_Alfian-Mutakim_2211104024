@@ -1,16 +1,24 @@
 import java.util.Date;
 
+enum JenisKelamin {
+    LAKI_LAKI, PEREMPUAN
+}
+
+enum TingkatKeanggotaan {
+    DASAR, PREMIUM, ELITE
+}
+
 public class LibraryMember {
 
     private String namaLengkap;
     private String alamat;
     private String nomorTelepon;
     private String email;
-    private String jenisKelamin;
+    private JenisKelamin jenisKelamin;
     private String kodeAnggota;
     private Date tanggalGabung;
     private boolean statusAktif;
-    private String tingkatKeanggotaan;
+    private TingkatKeanggotaan tingkatKeanggotaan;
     private int jumlahBukuDipinjam;
     private int jumlahTerlambat;
     private int jumlahDenda;
@@ -18,11 +26,11 @@ public class LibraryMember {
     private String kodeReferal;
     private boolean langgananBuletin;
 
-    public LibraryMember(String namaLengkap, String alamat, String nomorTelepon, String email, String jenisKelamin,
-            String kodeAnggota, Date tanggalGabung, boolean statusAktif,
-            String tingkatKeanggotaan, int jumlahBukuDipinjam,
-            int jumlahTerlambat, int jumlahDenda, int poinLoyalitas,
-            String kodeReferal, boolean langgananBuletin) {
+    public LibraryMember(String namaLengkap, String alamat, String nomorTelepon, String email, JenisKelamin jenisKelamin,
+                         String kodeAnggota, Date tanggalGabung, boolean statusAktif,
+                         TingkatKeanggotaan tingkatKeanggotaan, int jumlahBukuDipinjam,
+                         int jumlahTerlambat, int jumlahDenda, int poinLoyalitas,
+                         String kodeReferal, boolean langgananBuletin) {
 
         this.namaLengkap = namaLengkap;
         this.alamat = alamat;
@@ -43,6 +51,13 @@ public class LibraryMember {
 
     public void cetakProfilLengkap() {
         System.out.println("===== PROFIL ANGGOTA =====");
+        cetakInformasiDasar();
+        cetakStatistikPeminjaman();
+        cetakEvaluasi();
+        System.out.println("===========================");
+    }
+
+    private void cetakInformasiDasar() {
         System.out.println("Nama         : " + namaLengkap);
         System.out.println("Jenis Kelamin: " + jenisKelamin);
         System.out.println("Alamat       : " + alamat);
@@ -52,42 +67,37 @@ public class LibraryMember {
         System.out.println("Tanggal Gabung: " + tanggalGabung);
         System.out.println("Status Aktif : " + statusAktif);
         System.out.println("Tingkat      : " + tingkatKeanggotaan);
+        System.out.println("Kode Referal : " + kodeReferal);
+        System.out.println("Langganan Buletin: " + langgananBuletin);
+    }
+
+    private void cetakStatistikPeminjaman() {
         System.out.println("Buku Dipinjam: " + jumlahBukuDipinjam);
         System.out.println("Terlambat    : " + jumlahTerlambat);
         System.out.println("Denda        : Rp " + jumlahDenda);
         System.out.println("Poin         : " + poinLoyalitas);
-        System.out.println("Kode Referal : " + kodeReferal);
-        System.out.println("Langganan Buletin: " + langgananBuletin);
-        System.out.println("Skor Risiko : " + hitungSkorRisiko());
+    }
+
+    private void cetakEvaluasi() {
+        System.out.println("Skor Risiko  : " + hitungSkorRisiko());
         System.out.println("Layak Upgrade?: " + periksaKelayakanUpgrade());
-        System.out.println("===========================");
-    }
-
-    public void langgananBuletinPerpustakaan() {
-    }
-
-    public void gunakanKodeReferal(String kode) {
     }
 
     public boolean periksaKelayakanUpgrade() {
-        if (tingkatKeanggotaan.equals("DASAR") && poinLoyalitas > 100) {
-            return true;
-        }
-        return false;
+        return tingkatKeanggotaan == TingkatKeanggotaan.DASAR && poinLoyalitas > 100;
     }
 
     public double hitungSkorRisiko() {
         double skor = 0;
         skor += jumlahTerlambat * 1.5;
         skor += jumlahDenda * 0.1;
-        if (!statusAktif)
-            skor += 5;
-        if (tingkatKeanggotaan.equals("DASAR"))
-            skor += 2;
-        if (jumlahBukuDipinjam > 50)
-            skor -= 1.5;
+        if (!statusAktif) skor += 5;
+        if (tingkatKeanggotaan == TingkatKeanggotaan.DASAR) skor += 2;
+        if (jumlahBukuDipinjam > 50) skor -= 1.5;
         return skor;
     }
+
+    // Getters & Setters
 
     public int getJumlahBukuDipinjam() {
         return jumlahBukuDipinjam;
@@ -113,11 +123,11 @@ public class LibraryMember {
         jumlahDenda = d;
     }
 
-    public String getTingkatKeanggotaan() {
+    public TingkatKeanggotaan getTingkatKeanggotaan() {
         return tingkatKeanggotaan;
     }
 
-    public void setTingkatKeanggotaan(String t) {
+    public void setTingkatKeanggotaan(TingkatKeanggotaan t) {
         tingkatKeanggotaan = t;
     }
 
