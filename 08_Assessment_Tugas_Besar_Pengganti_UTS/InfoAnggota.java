@@ -1,11 +1,12 @@
-public class MemberInfo {
-    private String namaLengkap;
-    private String alamat;
-    private String nomorTelepon;
-    private String email;
-    private String jenisKelamin;
+public class InfoAnggota {
+    private final String namaLengkap;
+    private final String alamat;
+    private final String nomorTelepon;
+    private final String email;
+    private final JenisKelamin jenisKelamin;
 
-    public MemberInfo(String namaLengkap, String alamat, String nomorTelepon, String email, String jenisKelamin) {
+    public InfoAnggota(String namaLengkap, String alamat, String nomorTelepon, 
+                     String email, JenisKelamin jenisKelamin) {
         this.namaLengkap = namaLengkap;
         this.alamat = alamat;
         this.nomorTelepon = nomorTelepon;
@@ -13,10 +14,10 @@ public class MemberInfo {
         this.jenisKelamin = jenisKelamin;
     }
 
-    // Getter methods
+    // Getter
     public String getNamaLengkap() { return namaLengkap; }
     public String getAlamat() { return alamat; }
     public String getNomorTelepon() { return nomorTelepon; }
     public String getEmail() { return email; }
-    public String getJenisKelamin() { return jenisKelamin; }
+    public JenisKelamin getJenisKelamin() { return jenisKelamin; }
 }
