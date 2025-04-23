@@ -14,7 +14,7 @@ public class InfoAnggota {
         this.jenisKelamin = jenisKelamin;
     }
 
-    // Getter
+    // Getter methods
     public String getNamaLengkap() { return namaLengkap; }
     public String getAlamat() { return alamat; }
     public String getNomorTelepon() { return nomorTelepon; }

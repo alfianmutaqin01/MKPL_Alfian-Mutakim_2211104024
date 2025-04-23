@@ -13,16 +13,11 @@ public class RiwayatPeminjaman {
         this.totalDenda = totalDenda;
     }
 
-    public void catatPeminjaman() {
+    public void pinjamBuku() {
         jumlahBukuDipinjam++;
     }
 
-    public void catatKeterlambatan(int jumlahDenda) {
-        jumlahTerlambat++;
-        totalDenda += jumlahDenda;
-    }
-
-    // Getter
+    // Getter methods
     public int getJumlahBukuDipinjam() { return jumlahBukuDipinjam; }
     public int getJumlahTerlambat() { return jumlahTerlambat; }
     public int getTotalDenda() { return totalDenda; }

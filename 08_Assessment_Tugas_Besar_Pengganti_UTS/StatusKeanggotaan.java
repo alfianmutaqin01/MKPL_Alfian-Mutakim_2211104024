@@ -1,32 +1,25 @@
 public class StatusKeanggotaan {
-    private TingkatKeanggotaan tingkat;
+    private MembershipTier tingkat;
     private int poinLoyalitas;
     private boolean statusAktif;
 
-    public StatusKeanggotaan(TingkatKeanggotaan tingkat) {
+    public StatusKeanggotaan(MembershipTier tingkat) {
         this(tingkat, 0, true);
     }
 
-    public StatusKeanggotaan(TingkatKeanggotaan tingkat, int poinLoyalitas, boolean statusAktif) {
+    public StatusKeanggotaan(MembershipTier tingkat, int poinLoyalitas, boolean statusAktif) {
         this.tingkat = tingkat;
         this.poinLoyalitas = poinLoyalitas;
         this.statusAktif = statusAktif;
     }
 
     public boolean layakUpgrade() {
-        return tingkat == TingkatKeanggotaan.DASAR && poinLoyalitas > 100;
+        return tingkat == MembershipTier.DASAR && poinLoyalitas > 100;
     }
 
-    public void upgradeTingkat() {
-        if (layakUpgrade()) {
-            this.tingkat = TingkatKeanggotaan.PREMIUM;
-        }
-    }
-
-    // Getter dan Setter
-    public TingkatKeanggotaan getTingkat() { return tingkat; }
+    // Getter and setter methods
+    public MembershipTier getTingkat() { return tingkat; }
     public int getPoinLoyalitas() { return poinLoyalitas; }
     public boolean isStatusAktif() { return statusAktif; }
-    public void setStatusAktif(boolean statusAktif) { this.statusAktif = statusAktif; }
-    public void tambahPoinLoyalitas(int poin) { poinLoyalitas += poin; }
+    public void tambahPoin(int poin) { poinLoyalitas += poin; }
 }

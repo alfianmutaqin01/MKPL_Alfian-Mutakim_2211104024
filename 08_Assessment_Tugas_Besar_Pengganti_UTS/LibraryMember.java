@@ -10,7 +10,7 @@ public class LibraryMember {
 
     public LibraryMember(InfoAnggota info, String kodeAnggota, Date tanggalGabung) {
         this(info, kodeAnggota, tanggalGabung, 
-             new StatusKeanggotaan(TingkatKeanggotaan.DASAR), 
+             new StatusKeanggotaan(MembershipTier.DASAR), 
              new RiwayatPeminjaman(), 
              new Langganan());
     }
@@ -31,15 +31,7 @@ public class LibraryMember {
         PencetakProfil.cetak(this);
     }
 
-    public boolean layakUpgrade() {
-        return statusKeanggotaan.layakUpgrade();
-    }
-
-    public double hitungSkorRisiko() {
-        return KalkulatorRisiko.hitung(this);
-    }
-
-    // Getter
+    // Getter methods
     public InfoAnggota getInfo() { return info; }
     public String getKodeAnggota() { return kodeAnggota; }
     public Date getTanggalGabung() { return tanggalGabung; }
