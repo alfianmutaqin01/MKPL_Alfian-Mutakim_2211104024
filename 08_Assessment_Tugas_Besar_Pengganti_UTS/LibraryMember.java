@@ -1,58 +1,49 @@
 import java.util.Date;
 
 public class LibraryMember {
-    private MemberInfo info;
-    private String kodeAnggota;
-    private Date tanggalGabung;
-    private boolean statusAktif;
-    private MembershipTier tingkatKeanggotaan;
-    private int jumlahBukuDipinjam;
-    private int jumlahTerlambat;
-    private int jumlahDenda;
-    private int poinLoyalitas;
-    private String kodeReferal;
-    private boolean langgananBuletin;
+    private final InfoAnggota info;
+    private final String kodeAnggota;
+    private final Date tanggalGabung;
+    private final StatusKeanggotaan statusKeanggotaan;
+    private final RiwayatPeminjaman riwayatPeminjaman;
+    private final Langganan langganan;
 
-    public LibraryMember(MemberInfo info, String kodeAnggota, Date tanggalGabung, boolean statusAktif,
-                        MembershipTier tingkatKeanggotaan, int jumlahBukuDipinjam, int jumlahTerlambat,
-                        int jumlahDenda, int poinLoyalitas, String kodeReferal, boolean langgananBuletin) {
+    public LibraryMember(InfoAnggota info, String kodeAnggota, Date tanggalGabung) {
+        this(info, kodeAnggota, tanggalGabung, 
+             new StatusKeanggotaan(TingkatKeanggotaan.DASAR), 
+             new RiwayatPeminjaman(), 
+             new Langganan());
+    }
+
+    public LibraryMember(InfoAnggota info, String kodeAnggota, Date tanggalGabung,
+                        StatusKeanggotaan statusKeanggotaan, 
+                        RiwayatPeminjaman riwayatPeminjaman,
+                        Langganan langganan) {
         this.info = info;
         this.kodeAnggota = kodeAnggota;
         this.tanggalGabung = tanggalGabung;
-        this.statusAktif = statusAktif;
-        this.tingkatKeanggotaan = tingkatKeanggotaan;
-        this.jumlahBukuDipinjam = jumlahBukuDipinjam;
-        this.jumlahTerlambat = jumlahTerlambat;
-        this.jumlahDenda = jumlahDenda;
-        this.poinLoyalitas = poinLoyalitas;
-        this.kodeReferal = kodeReferal;
-        this.langgananBuletin = langgananBuletin;
+        this.statusKeanggotaan = statusKeanggotaan;
+        this.riwayatPeminjaman = riwayatPeminjaman;
+        this.langganan = langganan;
     }
 
-    public void cetakProfilLengkap() {
-        System.out.println("===== PROFIL ANGGOTA =====");
-        System.out.println("Nama         : " + info.getNamaLengkap());
-        System.out.println("Jenis Kelamin: " + info.getJenisKelamin());
-        System.out.println("Alamat       : " + info.getAlamat());
-        System.out.println("Telepon      : " + info.getNomorTelepon());
-        System.out.println("Email        : " + info.getEmail());
-        System.out.println("Kode Anggota : " + kodeAnggota);
-        System.out.println("Tanggal Gabung: " + tanggalGabung);
-        System.out.println("Status Aktif : " + statusAktif);
-        System.out.println("Tingkat      : " + tingkatKeanggotaan);
-        System.out.println("Buku Dipinjam: " + jumlahBukuDipinjam);
-        System.out.println("Terlambat    : " + jumlahTerlambat);
-        System.out.println("Denda        : Rp " + jumlahDenda);
-        System.out.println("Poin         : " + poinLoyalitas);
-        System.out.println("Kode Referal : " + kodeReferal);
-        System.out.println("Langganan Buletin: " + langgananBuletin);
-        System.out.println("Skor Risiko  : " + MembershipService.hitungSkorRisiko(
-            jumlahTerlambat, jumlahDenda, statusAktif, tingkatKeanggotaan, jumlahBukuDipinjam));
-        System.out.println("Layak Upgrade?: " + MembershipService.periksaKelayakanUpgrade(tingkatKeanggotaan, poinLoyalitas));
-        System.out.println("===========================");
+    public void cetakProfil() {
+        PencetakProfil.cetak(this);
     }
 
-    // Getter dan Setter untuk atribut yang diperlukan
-    public int getJumlahBukuDipinjam() { return jumlahBukuDipinjam; }
-    public void setJumlahBukuDipinjam(int jumlah) { this.jumlahBukuDipinjam = jumlah; }
+    public boolean layakUpgrade() {
+        return statusKeanggotaan.layakUpgrade();
+    }
+
+    public double hitungSkorRisiko() {
+        return KalkulatorRisiko.hitung(this);
+    }
+
+    // Getter
+    public InfoAnggota getInfo() { return info; }
+    public String getKodeAnggota() { return kodeAnggota; }
+    public Date getTanggalGabung() { return tanggalGabung; }
+    public StatusKeanggotaan getStatusKeanggotaan() { return statusKeanggotaan; }
+    public RiwayatPeminjaman getRiwayatPeminjaman() { return riwayatPeminjaman; }
+    public Langganan getLangganan() { return langganan; }
 }
